@@ -1,59 +1,55 @@
 import requests
 import json
+from faker import Faker
 
-# Step 3: Create GET requests
-pokemon_response = requests.get("https://fakerapi.it/api/v1/pokemon?_quantity=15")
-images_response = requests.get("https://fakerapi.it/api/v1/images?_quantity=15&_type=people")
-places_response = requests.get("https://fakerapi.it/api/v1/places?_quantity=15")
+# Install the required libraries
+# !pip3 install faker
+
+# Import the Faker library
+fake = Faker()
+
+# Step 2: Create GET requests
+pokemon_api_url = "https://pokeapi.co/api/v2/pokemon"
+images_api_url = "https://fakerapi.it/api/v1/images?_type=people&__quantity=15"
+users_api_url = "https://fakerapi.it/api/v1/places?__quantity=15"
+
+pokemon_response = requests.get(pokemon_api_url).json()
+images_response = requests.get(images_api_url).json()
+users_response = requests.get(users_api_url).json()
 
 # Step 4: Convert and store responses in JSON files
-pokemon_data = pokemon_response.json()
-images_data = images_response.json()
-places_data = places_response.json()
+with open('pokemon_data.json', 'w') as pokemon_file:
+    json.dump(pokemon_response, pokemon_file, indent=2)
 
-with open("pokemon_data.json", "w") as file:
-    json.dump(pokemon_data, file, indent=2)
+with open('images_data.json', 'w') as images_file:
+    json.dump(images_response, images_file, indent=2)
 
-with open("images_data.json", "w") as file:
-    json.dump(images_data, file, indent=2)
-
-with open("places_data.json", "w") as file:
-    json.dump(places_data, file, indent=2)
+with open('users_data.json', 'w') as users_file:
+    json.dump(users_response, users_file, indent=2)
 
 # Step 5: Create new dictionaries
+# Print the structure of images_response
+print(json.dumps(images_response, indent=2))
+
+# Create new dictionaries
 poke_locations = []
 
-# Add these lines for debugging
-print("Pokemon Response:", pokemon_response.json())
-print("Images Response:", images_response.json())
-print("Places Response:", places_response.json())
+for i in range(min(15, len(images_response['data']))):
+    poke_location = {
+        "pokemon": pokemon_response['results'][i]['name'],
+        "image": images_response['data'][i]['url'],
+        "location": fake.local_latlng(),
+    }
+    poke_locations.append(poke_location)
 
-for i in range(15):
-    try:
-        pokemon_name = pokemon_data['data'][i]["name"]
-        image_link = images_data['data'][i]["url"]
-        location = {
-            "latitude": places_data['data'][i]["latitude"],
-            "longitude": places_data['data'][i]["longitude"]
-        }
-
-        poke_location = {
-            "pokemon": pokemon_name,
-            "image": image_link,
-            "location": location
-        }
-
-        poke_locations.append(poke_location)
-    except KeyError as e:
-        print(f"KeyError at index {i}: {e}")
-        print("Pokemon Response:", pokemon_data)
-        print("Images Response:", images_data)
-        print("Places Response:", places_data)
 
 # Step 6: Print the results
-for i, poke_location in enumerate(poke_locations, 1):
+for i, location in enumerate(poke_locations, 1):
     print(f"--------\nPokemon {i}\n--------")
-    print(f"Name: {poke_location['pokemon']}")
-    print(f"Image: {poke_location['image']}")
-    print(f"Latitude: {poke_location['location']['latitude']}")
-    print(f"Longitude: {poke_location['location']['longitude']}")
+    print(f"Name: {location['pokemon']}")
+    print(f"Image: {location['image']}")
+    print(f"Latitude: {location['location'][0]}")
+    print(f"Longitude: {location['location'][1]}")
+
+# Step 7: Create personalized requests and present the data
+# You can explore the suggested APIs and implement your ideas here.
