@@ -1,0 +1,67 @@
+{
+  "status": "OK",
+  "code": 200,
+  "total": 15,
+  "data": [
+    {
+      "latitude": 14.49452,
+      "longitude": 176.16569
+    },
+    {
+      "latitude": -45.232975,
+      "longitude": 52.671392
+    },
+    {
+      "latitude": -49.823205,
+      "longitude": 148.579477
+    },
+    {
+      "latitude": -19.41276,
+      "longitude": 103.87725
+    },
+    {
+      "latitude": 8.525644,
+      "longitude": -156.366723
+    },
+    {
+      "latitude": 87.961176,
+      "longitude": -118.841489
+    },
+    {
+      "latitude": 48.931872,
+      "longitude": 56.014522
+    },
+    {
+      "latitude": 85.096844,
+      "longitude": 84.537418
+    },
+    {
+      "latitude": 77.932204,
+      "longitude": -39.748639
+    },
+    {
+      "latitude": -51.043206,
+      "longitude": -110.220617
+    },
+    {
+      "latitude": -23.403613,
+      "longitude": -177.75294
+    },
+    {
+      "latitude": -36.21626,
+      "longitude": 151.601086
+    },
+    {
+      "latitude": -21.307174,
+      "longitude": -128.954518
+    },
+    {
+      "latitude": -45.192028,
+      "longitude": -142.528746
+    },
+    {
+      "latitude": -49.9574,
+      "longitude": -22.016057
+    }
+  ]
+}
